@@ -6,6 +6,19 @@ code-server now runs https
 == SSH key
 It will generate an ssh key pair, in order to ssh into the box you need to load the private key.
 
+=== Steps to load the ssh key
+Select the output of the terraform saying tls_private_key and copy all until the -----END
+Make sure you do not copy extra spaces etc.
+
+----
+touch myprivatekey
+paste the copied info
+tls_private_key = -----BEGIN RSA PRIVATE KEY-----
+chmod 400 myprivatekey
+ssh-add -D
+ssh-add myprivatekey
+ssh into your box now
+----
 
 == What steps are needed
 * adjust firewall rules
