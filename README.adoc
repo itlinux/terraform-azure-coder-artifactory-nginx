@@ -1,1 +1,50 @@
-= This Repo is for Azure, a repo for GCP is also available 
+= Install CentOS 7 with Docker on AZURE
+This creates a CentOS VM running docker and for demo it installs nginx
+It will also install code-server, and artifactory. I have not setup any vars for now
+code-server now runs https
+
+== SSH key
+It will generate an ssh key pair, in order to ssh into the box you need to load the private key.
+
+
+== What steps are needed
+* adjust firewall rules
+* download your json file before you run Terraform
+
+
+== Files included are:
+** firewall (rules and specific IP address is set)
+** network (network autogen)
+** vm (builds a centos 7 with docker and runs docker nginx )
+** coder (for code-server uses port 8080)
+** jfrog (for artifactory uses port 8082)
+** output to show public IP
+** nginx uses port 80
+
+== Extensions installed from TF
+** Advanced Terraform Snippets Generator
+** Git History
+** HashiCorp Terraform
+** Gitlens
+
+== JFROG
+Login using default settings:
+** username is admin
+** password is password
+
+=== Create new Generic Repo
+Once you create a new Generic Repo upload a file
+
+Example:
+
+PUT a file from the CLI into a folder called terraform
+----
+curl -uadmin:13AP4StZLiEC3bzwZFUPitjvmC18n -T vm.tf  "http://135.202.177.134:8082/artifactory/generic-local/terraform/vm.tf"
+----
+
+GET a file from the CLI (GENERIC REPO Created above)
+----
+curl -o coder.tf http://135.202.177.134:8082/artifactory/generic-local/coder.tf -uadmin
+----
+
+NOTE: by default JFROG requires username and password to pull the files, you can change this into admin/security option in JFROG
