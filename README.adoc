@@ -12,8 +12,8 @@ Make sure you do not copy extra spaces etc.
 
 ----
 touch myprivatekey
-paste the copied info
-tls_private_key = -----BEGIN RSA PRIVATE KEY-----
+paste the copied info do not paste the tls_private_key part 
+-----BEGIN RSA PRIVATE KEY-----
 chmod 400 myprivatekey
 ssh-add -D
 ssh-add myprivatekey
