@@ -11,4 +11,3 @@ resource "random_password" "coder-password" {
   special          = true
   override_special = "_%@"
 }
-

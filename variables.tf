@@ -1,5 +1,3 @@
-#based on the region this will change for west2 it it will be westus2.cloudapp.azure.com 
-#or europe it will be westeurope.cloudapp.azure.com etc..
 variable "fqdn" {
   default = "westus2"
 }
@@ -57,15 +55,28 @@ variable "firewall_name" {
 variable "source_tags" {
   default = "remo-home"
 }
-
-variable "priv_sshkey" {
-  default = "~/.ssh/gcpf5"
-}
-variable "public_key_file" {
-  default = "~/.ssh/gcpf5.pub"
-}
 variable "region" {
   default = "westus 2"
+}
+variable "ports" {
+  default = [ "22","80","81","8080","8082"]
+}
+variable "ports_udp" {
+  type    = map
+  default = {
+    100   = 53
+  }
+}
+variable "ports_tcp" {
+  type    = map
+  default = {
+    100   = "22"
+    101   = "80"
+    102   = "443"
+    103   = "8080"
+    104   = "8082"
+    105   = "81"
+  }
 }
 variable "allowed_ips" {
   type = map

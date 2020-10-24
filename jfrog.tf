@@ -4,7 +4,7 @@ resource "null_resource" "jfrog" {
       type        = "ssh"
       user        = var.ssh_user
       private_key = tls_private_key.docker_ssh.private_key_pem
-      host        = azurerm_linux_virtual_machine.linux_container.public_ip_address
+      host        = azurerm_linux_virtual_machine.linuxbox.public_ip_address
       agent       = false
     }
 
@@ -14,5 +14,5 @@ resource "null_resource" "jfrog" {
       "docker run --name artifactory --rm -d -p 8082:8081 -v /jfrog/artifactory:/var/opt/jfrog/artifactory docker.bintray.io/jfrog/artifactory-oss:6.21.0"
     ]
   }
-  depends_on = [azurerm_linux_virtual_machine.linux_container, null_resource.docker_install]
+  depends_on = [azurerm_linux_virtual_machine.linuxbox, null_resource.docker_install]
 }

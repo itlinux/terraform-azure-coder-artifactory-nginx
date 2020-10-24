@@ -1,7 +1,8 @@
+# Create virtual network
 resource "azurerm_virtual_network" "dockernetwork" {
-    name                = "${var.prefix}-${var.vnet_name}"
-    address_space       = [var.network_cidr]
-    location            = var.region
+    name                = "docker-Vnet"
+    address_space       = ["10.0.0.0/16"]
+    location                     = azurerm_resource_group.dockercoderartinginx.location
     resource_group_name = azurerm_resource_group.dockercoderartinginx.name
 
     tags = {
@@ -9,37 +10,24 @@ resource "azurerm_virtual_network" "dockernetwork" {
         owner = "Remo Mattei"
     }
 }
+
+# Create subnet
 resource "azurerm_subnet" "dockersubnet" {
-  name                 = "dockersub"
-  resource_group_name  = azurerm_resource_group.dockercoderartinginx.name
-  virtual_network_name = azurerm_virtual_network.dockernetwork.name
-  address_prefixes     = [var.subnet_cidr]
+    name                 = "docker-Subnet"
+    resource_group_name  = azurerm_resource_group.dockercoderartinginx.name
+    virtual_network_name = azurerm_virtual_network.dockernetwork.name
+    address_prefixes       = ["10.0.1.0/24"]
 }
 
-resource "azurerm_public_ip" "pip" {
-  name                    = "docker_pip"
-  location                = azurerm_resource_group.dockercoderartinginx.location
-  resource_group_name     = azurerm_resource_group.dockercoderartinginx.name
-  domain_name_label       = "${var.linux_vm_name}${var.fqdn}"
-  allocation_method       = "Dynamic"
-  idle_timeout_in_minutes = 30
+# Create public IPs
+resource "azurerm_public_ip" "dockerpip" {
+    name                         = "docker-PublicIP"
+    location                     = azurerm_resource_group.dockercoderartinginx.location
+    resource_group_name          = azurerm_resource_group.dockercoderartinginx.name
+    allocation_method            = "Dynamic"
 
-  tags = {
-    environment = "Demo"
-    owner = "Remo Mattei"
-  }
-}
-
-resource "azurerm_network_interface" "dockernic" {
-  name                = "docker-nic"
-  location            = azurerm_resource_group.dockercoderartinginx.location
-  resource_group_name = azurerm_resource_group.dockercoderartinginx.name
-
-  ip_configuration {
-    name                          = "ip_configuration"
-    subnet_id                     = azurerm_subnet.dockersubnet.id
-    private_ip_address_allocation = "Static"
-    private_ip_address            = "10.1.0.5"
-    public_ip_address_id          = azurerm_public_ip.pip.id
-  }
+    tags = {
+        environment = "Demo"
+        owner = "Remo Mattei"
+    }
 }

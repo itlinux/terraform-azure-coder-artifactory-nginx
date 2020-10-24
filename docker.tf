@@ -4,7 +4,7 @@ resource "null_resource" "docker_install" {
       type        = "ssh"
       user        = var.ssh_user
       private_key = tls_private_key.docker_ssh.private_key_pem
-      host        = azurerm_linux_virtual_machine.linux_container.public_ip_address
+      host        = azurerm_linux_virtual_machine.linuxbox.public_ip_address
       agent       = false
     }
 
@@ -15,5 +15,5 @@ resource "null_resource" "docker_install" {
       "sudo docker run -d --name nginx -p 80:80 nginx"
     ]
   }
-  depends_on = [azurerm_linux_virtual_machine.linux_container]
+  depends_on = [azurerm_linux_virtual_machine.linuxbox]
 }

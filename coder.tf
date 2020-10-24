@@ -5,7 +5,7 @@ resource "null_resource" "coder" {
       type        = "ssh"
       user        = var.ssh_user
       private_key = tls_private_key.docker_ssh.private_key_pem
-      host        = azurerm_linux_virtual_machine.linux_container.public_ip_address
+      host        = azurerm_linux_virtual_machine.linuxbox.public_ip_address
       agent       = false
     }
 
@@ -31,5 +31,5 @@ resource "null_resource" "coder" {
       "docker exec -it code-server git config --global user.email ${var.user_email}"
     ]
   }
-  depends_on = [azurerm_linux_virtual_machine.linux_container,null_resource.docker_install]
+  depends_on = [azurerm_linux_virtual_machine.linuxbox,null_resource.docker_install]
 }
