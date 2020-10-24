@@ -31,5 +31,5 @@ resource "null_resource" "coder" {
       "docker exec -it code-server git config --global user.email ${var.user_email}"
     ]
   }
-  depends_on = [azurerm_linux_virtual_machine.linuxbox,null_resource.docker_install]
+  depends_on = [azurerm_linux_virtual_machine.linuxbox, null_resource.docker_install]
 }

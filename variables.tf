@@ -1,5 +1,5 @@
 variable "fqdn" {
-  default = "westus2"
+  default = "demo-in-westus2"
 }
 variable "prefix" {
   default = "remomattei"
@@ -49,40 +49,9 @@ variable "sku" {
 variable "linux_image" {
   default = "centos-cloud/centos-7"
 }
-variable "firewall_name" {
-  default = "remo-firewall"
-}
 variable "source_tags" {
   default = "remo-home"
 }
 variable "region" {
   default = "westus 2"
-}
-variable "ports" {
-  default = [ "22","80","81","8080","8082"]
-}
-variable "ports_udp" {
-  type    = map
-  default = {
-    100   = 53
-  }
-}
-variable "ports_tcp" {
-  type    = map
-  default = {
-    100   = "22"
-    101   = "80"
-    102   = "443"
-    103   = "8080"
-    104   = "8082"
-    105   = "81"
-  }
-}
-variable "allowed_ips" {
-  type = map
-  default = {
-    ip1 = "166.70.92.176/32"
-    ip2 = "172.10.163.251"
-    ip3 = "99.109.51.251"
-  }
 }
