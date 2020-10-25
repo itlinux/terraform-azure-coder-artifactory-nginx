@@ -1,6 +1,6 @@
 # Create virtual network
 resource "azurerm_virtual_network" "dockernetwork" {
-  name                = "docker-Vnet"
+  name                = var.network_name
   address_space       = [var.network_cidr]
   location            = azurerm_resource_group.dockercoderartinginx.location
   resource_group_name = azurerm_resource_group.dockercoderartinginx.name
@@ -13,7 +13,7 @@ resource "azurerm_virtual_network" "dockernetwork" {
 
 # Create subnet
 resource "azurerm_subnet" "dockersubnet" {
-  name                 = "docker-Subnet"
+  name                 = var.subnet_name
   resource_group_name  = azurerm_resource_group.dockercoderartinginx.name
   virtual_network_name = azurerm_virtual_network.dockernetwork.name
   address_prefixes     = [var.subnet_cidr]
@@ -21,7 +21,7 @@ resource "azurerm_subnet" "dockersubnet" {
 
 # Create public IPs
 resource "azurerm_public_ip" "dockerpip" {
-  name                = "docker-PublicIP"
+  name                = var.pip_name
   location            = azurerm_resource_group.dockercoderartinginx.location
   resource_group_name = azurerm_resource_group.dockercoderartinginx.name
   allocation_method   = "Dynamic"

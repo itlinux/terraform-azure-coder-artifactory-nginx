@@ -29,7 +29,13 @@ variable "user_email" {
   default = "nobody@example.com"
 }
 variable "network_name" {
-  default = "remo-terraform"
+  default = "remo-network"
+}
+variable "subnet_name" {
+  default = "remo-subnet"
+}
+variable "pip_name" {
+  default = "remo-pip"
 }
 variable "instance_name" {
   default = "remo-test-tf-instance"
